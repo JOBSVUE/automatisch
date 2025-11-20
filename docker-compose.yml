@@ -22,9 +22,9 @@ services:
       - POSTGRES_DATABASE=automatisch
       - POSTGRES_USERNAME=automatisch_user
       - POSTGRES_PASSWORD=automatisch_password
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - WEBHOOK_SECRET_KEY=${WEBHOOK_SECRET_KEY}
-      - APP_SECRET_KEY=${APP_SECRET_KEY}
+      - ENCRYPTION_KEY=${SERVICE_BASE64_AUTO_ENC}
+      - WEBHOOK_SECRET_KEY=${SERVICE_PASSWORD_AUTO_WEBHOOK}
+      - APP_SECRET_KEY=${SERVICE_PASSWORD_AUTO_APP}
     volumes:
       - automatisch_storage:/automatisch/storage
   worker:
@@ -41,9 +41,9 @@ services:
       - POSTGRES_DATABASE=automatisch
       - POSTGRES_USERNAME=automatisch_user
       - POSTGRES_PASSWORD=automatisch_password
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - WEBHOOK_SECRET_KEY=${WEBHOOK_SECRET_KEY}
-      - APP_SECRET_KEY=${APP_SECRET_KEY}
+      - ENCRYPTION_KEY=${SERVICE_BASE64_AUTO_ENC}
+      - WEBHOOK_SECRET_KEY=${SERVICE_PASSWORD_AUTO_WEBHOOK}
+      - APP_SECRET_KEY=${SERVICE_PASSWORD_AUTO_APP}
       - WORKER=true
     volumes:
       - automatisch_storage:/automatisch/storage
