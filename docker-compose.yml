@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.compose
     entrypoint: /compose-entrypoint.sh
     ports:
-      - '3200:3000'
+      - '4000:3000'
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,6 +48,7 @@ services:
       - WORKER=true
     volumes:
       - automatisch_storage:/automatisch/storage
+      
   postgres:
     image: 'postgres:14.5'
     environment:
@@ -55,17 +56,19 @@ services:
       - POSTGRES_USER=automatisch_user
       - POSTGRES_PASSWORD=automatisch_password
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - automatisch_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
       interval: 10s
       timeout: 5s
       retries: 5
+      
   redis:
     image: 'redis:7.0.4'
     volumes:
-      - redis_data:/data
+      - automatisch_redis_data:/data
+      
 volumes:
   automatisch_storage:
-  postgres_data:
-  redis_data:
+  automatisch_postgres_data:
+  automatisch_redis_data:
